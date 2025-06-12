@@ -1,4 +1,5 @@
 import { getMilestonesForChild, addCustomMilestone } from "../models/milestoneModel.js"
+import { PostgresError } from "pg-error-enum";
 
 export const getRelevantMilestones = async (req, res, next) => {
 	try {
@@ -12,6 +13,11 @@ export const getRelevantMilestones = async (req, res, next) => {
 
 		const milestones = await getMilestonesForChild(childId)
 
+		if (milestones.length == 0) {
+			const err = new Error("Child not found");
+			err.status = 404;
+			throw err;
+		}
 		res.status(200).json({
 			success: "success",
 			message: "Retrieved Milestones Succesfully",
@@ -25,11 +31,23 @@ export const getRelevantMilestones = async (req, res, next) => {
 
 export const putCustomMilestone = async (req, res, next) => {
 	try {
+		if (!req.body) {
+			const err = new Error("Missing Payload Body")
+			err.status = 400;
+			throw err;
+		}
+
 		const childId = parseInt(req.params.child_id)
 		const { title, description } = req.body
 
 		if (!title || !description || !childId) {
-			const err = new Error("Invalid Fields: title, description, childId")
+			const invalidFields = []
+
+			if (!title) invalidFields.push("title")
+			if (!description) invalidFields.push("description")
+			if (!childId) invalidFields.push("childId")
+
+			const err = new Error(`Invalid Field(s): ${invalidFields.join(", ")}`)
 			err.status = 400
 			throw err
 		}
@@ -43,6 +61,12 @@ export const putCustomMilestone = async (req, res, next) => {
 		})
 
 	} catch (err) {
-		next(err)
+		if (err.code == PostgresError.FOREIGN_KEY_VIOLATION) {
+			const newErr = new Error("Child not found")
+			newErr.status = 404
+			next(newErr)
+		} else {
+			next(err)
+		}
 	}
 }

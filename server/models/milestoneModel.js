@@ -1,4 +1,4 @@
-import db from "../db/index.js";
+import db from "../db/index.js"
 
 export const getMilestonesForChild = async (child_id) => {
 	const query = `
@@ -29,7 +29,6 @@ export const addCustomMilestone = async (title, description, child_id) => {
 
 	let result = await db.query(queryMilestone, [title, description, isCustom])
 	const queryMilestoneResult = result.rows[0]
-
 
 	const queryProgress = `
 		INSERT INTO 
