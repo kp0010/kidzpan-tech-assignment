@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "729f9ed1-0e25-4b29-ad3b-67b8b5867bb3",
+		"name": "KidzPAN Milestones Tracker API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31772619"
+	},
+	"item": [
+		{
+			"name": "Get all relevant milestones for a child",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/milestones/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"milestones",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Custom Milestones for a Child",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"title\": \"Count to 100\", \n   \"description\": \"Count up to 100 numbers\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/milestones/custom/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"milestones",
+						"custom",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mark Milestone Progress as Complete",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"childId\": 1, \n    \"milestoneId\": 8,\n    \"status\": \"complete\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/progress/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"progress",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
