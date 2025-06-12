@@ -8,6 +8,7 @@ const DATABASE_CONFIG = {
 	host: process.env.DATABASE_HOST,
 	database: process.env.DATABASE_DB,
 	port: process.env.DATABASE_PORT,
+	password: process.env.DATABASE_PW,
 };
 
 const db = new pg.Pool(DATABASE_CONFIG)

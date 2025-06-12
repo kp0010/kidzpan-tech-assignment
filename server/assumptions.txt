@@ -1,2 +1,0 @@
-1. Age Group is a range of ages rather than distinct ages
-2. Age Groups are not considered for custom milestones

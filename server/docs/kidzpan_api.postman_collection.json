@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/milestones/",
+					"raw": "http://localhost:8080/milestones/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
